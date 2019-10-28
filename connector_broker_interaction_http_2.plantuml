@@ -9,27 +9,6 @@ hide footbox
 
 == Authorized Connection Established ==
 
-group Registration
-    note right of C: *ConnectorAvailableMessage\n*payload: connector self-description
-    C -[#blue]> B : register request with JWT
-
-    B -[#blue]> K : check authorization
-    K --[#blue]> B : authorization result
-
-    alt on successfull authorization
-        B -[#blue]> F : persist connector self-description
-        F --[#blue]> B : persistence success/fail
-
-
-        note right of C: MessageProcessedNotification
-        B --[#blue]> C : (optional) MessageProcessedNotification
-
-    else on error
-        autonumber stop
-        note right of C: RejectionMessage
-        B --[#red]> C : report failure
-    end
-end
 
 group Subsequent Requests/Queries
     note right of C: *QueryMessage\n*describes scope and query language\n*payload: query string (e.g., SPARQL)

@@ -31,26 +31,4 @@ group Registration
     end
 end
 
-group Subsequent Requests/Queries
-    note right of C: *QueryMessage\n*describes scope and query language\n*payload: query string (e.g., SPARQL)
-    C -[#blue]> B : query
-
-    B -[#blue]> K : check authorization
-    K --[#blue]> B : authorization result
-
-    alt on successfull authorization
-        B -[#blue]> F : issue query
-        F --[#blue]> B : query result
-
-
-        note right of C: *ResultMessage\n*correlated to query request
-        B --[#blue]> C : result
-
-    else on error
-        autonumber stop
-        note right of C: RejectionMessage
-        B --[#red]> C : report failure
-    end
-end
-
 @enduml
