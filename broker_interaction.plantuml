@@ -12,38 +12,31 @@ participant "Internal Broker Storage" as IBS
 
 group UC1: fail on registration
     note right of C: *Connector self-description\n*Access Token
-    C -> B: 1. ConnectorAvailable
+    C -> B: 1. ConnectorAvailableMessage
     note left of B: reason: Not Authorized
-    B --> C: 2. Rejection
+    B --> C: 2. RejectionMessage
 end
 
 group UC2: successful registration
-    C -> B: 3. ConnectorAvailable
+    C -> B: 3. ConnectorAvailableMessage
     B -> IBS: 4a. persist self description
     note left of IBS: Local self-description\nidentifier
     IBS --> B: 4b. done
-    B --> C: (optional) MessageProcessed
+    B --> C: (optional) MessageProcessedNotification
 end
 
 group UC3: Update Connector
-    C -> B: 5. ConnectorConfigurationChange
+    C -> B: 5. ConnectorUpdateMessage
     B -> IBS: 6a. update self description
     IBS --> B: 6b. done
-    B --> C: (optional) MessageProcessed
+    B --> C: (optional) MessageProcessedNotification
 end
 
-group UC4: Temporarily Deactivate Connector
-    C -> B: 7. ConnectorTemporarilyUnavailable
-    B -> IBS: 8a. flag self description for ignore
-    IBS --> B: 8b. done
-    B --> C: (optional) MessageProcessed
-end
-
-group UC5: Unregister Connector Permanently
-    C -> B: 7. ConnectorUnavailable
+group UC4: Unregister Connector
+    C -> B: 7. ConnectorUnavailableMessage
     B -> IBS: 8a. remove self description
     IBS --> B: 8b. done
-    B --> C: (optional) MessageProcessed
+    B --> C: (optional) MessageProcessedNotification
 end
 
 @enduml

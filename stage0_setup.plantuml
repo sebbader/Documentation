@@ -14,7 +14,7 @@ partition "Connector Setup" {
 	:Deploy locally;
 }
 
-partition "Security Setup" {
+partition "Identity Provisioning" {
     :Deploy X.590 Certificate;
     :Register and Setup DAPS and SOC;
 }

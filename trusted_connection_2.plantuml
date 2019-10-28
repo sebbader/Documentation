@@ -1,0 +1,19 @@
+@startuml
+
+hide footbox
+
+participant "**Consumer**\n(IDS Connector)" as C
+participant "**Identity Provider** (+DAPS)" as IDP
+participant "**Provider**\n(IDS Connector)" as P
+
+== IDS Identity Provisioned ==
+
+note right of C: *IDS infrastructure- or participant-level communication\n*contains identity token
+C -> P: 1a. IDS Message
+
+P -> IDP: 2a. validate Dynamic Attribute Token
+P <-- IDP: 2b. validation response
+
+C <-- P: 1b. IDS response message
+
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+
+hide footbox
+
+
+participant "**Data Provider**\n(IDS Connector)" as P
+participant "**Identity Provider**\n(IP)" as IP
+participant "**Dynamic Attribute Provisioning Service**\n(DAPS, part of IP)" as DAPS
+
+note right of P: 1a and 1b are proprietary communication
+P -> IP: 1a. certificate signing request
+P <-- IP: 1b. certificate response
+
+P -> P: 1c. install 
+
+== Data Provider Connector enabled for secure connections (e.g. HTTPS) ==
+
+note right of P: IDS infrastructure-level communication
+P -> DAPS: 2a. Dynamic Attribute Token (DAT) request
+
+DAPS -> DAPS: 2b. DAT generation
+
+DAPS --> P: 2c. DAT response
+
+
+@enduml
